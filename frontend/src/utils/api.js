@@ -1,7 +1,17 @@
 import axios from 'axios'
 
+// Use relative URL - Vercel will proxy /api/* to backend via vercel.json
+// For local development, use localhost
+const apiUrl = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:3001/api' : '/api');
+
+// Get full URL for profile photos - works in dev (localhost) and production (Vercel proxy)
+export const getPhotoUrl = (path) => {
+  if (!path) return null;
+  return import.meta.env.DEV ? `http://localhost:3001${path}` : path;
+};
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3001/api',
+  baseURL: apiUrl,
 })
 
 // Add token to requests if available
