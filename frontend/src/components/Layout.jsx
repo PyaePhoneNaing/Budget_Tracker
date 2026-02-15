@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import { getPhotoUrl } from '../utils/api'
 
 const Layout = ({ children }) => {
   const { user, logout } = useAuth()
@@ -49,7 +50,7 @@ const Layout = ({ children }) => {
               >
                 {user?.profilePhoto ? (
                   <img 
-                    src={`http://localhost:3001${user.profilePhoto}`} 
+                    src={getPhotoUrl(user.profilePhoto)} 
                     alt={user?.name}
                     className="w-8 h-8 rounded-full object-cover border border-[#262626]"
                   />

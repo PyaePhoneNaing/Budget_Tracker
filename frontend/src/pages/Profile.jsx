@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import Layout from '../components/Layout'
-import api from '../utils/api'
+import api, { getPhotoUrl } from '../utils/api'
 import { useAuth } from '../contexts/AuthContext'
 import { useRefresh } from '../contexts/RefreshContext'
 import { CURRENCIES } from '../utils/currency'
@@ -49,7 +49,7 @@ const Profile = () => {
         currency: userData.currency || 'USD',
       })
       if (userData.profilePhoto) {
-        setPhotoPreview(`http://localhost:3001${userData.profilePhoto}`)
+        setPhotoPreview(getPhotoUrl(userData.profilePhoto))
       }
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to load profile')
@@ -138,7 +138,7 @@ const Profile = () => {
       setUser(updatedUser)
       updateUser(updatedUser) // Update auth context
       if (updatedUser.profilePhoto) {
-        setPhotoPreview(`http://localhost:3001${updatedUser.profilePhoto}`)
+        setPhotoPreview(getPhotoUrl(updatedUser.profilePhoto))
       }
       setSuccess('Profile photo updated successfully')
       setPhotoFile(null)
