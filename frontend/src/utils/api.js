@@ -1,7 +1,12 @@
 import axios from 'axios'
 
+// Use relative URL - Vercel will proxy /api/* to backend via vercel.json
+// For local development, use localhost
+const apiUrl = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:3001/api' : '/api');
+console.log('API Base URL:', apiUrl); // Debug log
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3001/api',
+  baseURL: apiUrl,
 })
 
 // Add token to requests if available
